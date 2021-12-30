@@ -1,0 +1,37 @@
+{% extends 'shop/basic.html' %}
+{% block title%}Order Tracker{% endblock %}
+{% block body%}
+
+<div class="container">
+    <ul class="list" id="item"></ul>
+    </div>
+
+    {% endblock %}
+
+{% block js %}
+<script>
+    var Responce;
+    //item show in cart
+    if (localStorage.getItem('Responce') == null) {
+        Responce = {};
+    }
+    else {
+        Responce = JSON.parse(localStorage.getItem('Responce'));
+    }
+    console.log(Responce)
+for (item in Responce) {
+            let qty = Responce.razorpay_payment_id;
+            let name = Responce.razorpay_order_id;
+            let price = Responce.razorpay_signature;
+
+            mystr = `<li class="list-item d-flex justify-content-between align-items-center">
+               <div class=" mx-4">
+                <span id="1"  class="  mx-5"><h5>${name}</h5></span>
+                <span id="2" class="  mx-5"><h5>${qty}</h5></span>
+                <span id="3" class=" mx-5"><h5>${price}</h5></span>
+                </div>
+                </li>`
+                $('#item').append(mystr)
+            }
+        </script>
+{% endblock %}
