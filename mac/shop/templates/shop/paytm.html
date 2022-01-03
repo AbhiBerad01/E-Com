@@ -1,7 +1,12 @@
 <button id="rzp-button1">Pay</button>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<p style="display: none;" id="id">{{id}}</p>
 
 <script>
+  let orderId = document.getElementById('id').innerText
+  let ordeId = document.getElementById('rzp-button1')
+  console.log(orderId)
+  console.log(ordeId)
   var options = {
     key: "rzp_test_OBuUgKuzJgcgZq", // Enter the Key ID generated from the Dashboard
     amount: "{{payment.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -15,14 +20,12 @@
       const Responce = {
         razorpay_payment_id:response.razorpay_payment_id,
         razorpay_order_id:response.razorpay_order_id,
-        razorpay_signature:response.razorpay_signature
+        razorpay_signature:response.razorpay_signature,
+        orderId : orderId
       }
       
     window.localStorage.setItem('Responce', JSON.stringify(Responce));
     location.href='/shop/handlerequest'
-      alert(response.razorpay_payment_id);
-      alert(response.razorpay_order_id);
-      alert(response.razorpay_signature);
     },
     theme: { color: "#3399cc" },
   };

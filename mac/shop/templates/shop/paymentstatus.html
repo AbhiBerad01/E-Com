@@ -1,9 +1,20 @@
 {% extends 'shop/basic.html' %}
 {% block title%}Order Tracker{% endblock %}
 {% block body%}
-
 <div class="container">
-    <ul class="list" id="item"></ul>
+    <div class="order">
+    <h1>Your order is placed</h1>
+     <span id="orderId"></span>
+    
+<p>Use This Id to track Your Order</p>
+
+    <hr>
+    <div class="payment d-none" >
+    <p>Here is the RazerPay Payment details</p>
+    <span class="my-3" id="item1"></span>
+    <span class="my-3" id="item2"></span>
+    <span class="my-3" id="item3"></span>
+</div>
     </div>
 
     {% endblock %}
@@ -20,18 +31,36 @@
     }
     console.log(Responce)
 for (item in Responce) {
-            let qty = Responce.razorpay_payment_id;
-            let name = Responce.razorpay_order_id;
-            let price = Responce.razorpay_signature;
+            const rPaymentId = Responce.razorpay_payment_id;
+            const rOrderId = Responce.razorpay_order_id;
+            const rSignature = Responce.razorpay_signature;
+            const iD = Responce.orderId
+            myOI= `
+            <div class=" mx-4">
+                <span id=""  class="mx-5"><h5>${rOrderId}</h5></span>
+            </div>
+            `
+            myPI= `
+            <div class=" mx-4">
+                <span id="2"  class="mx-5"><h5>${rPaymentId}</h5></span>
+            </div>
+            `
+            mySign= `
+            <div class=" mx-4">
+                <span id="3"  class="mx-5"><h5>${rSignature}</h5></span>
+            </div>
+            `
+            myiD= `
+            <div class=" ">
+                <span id="3"  class="mx-5"><h5>Here is the order id of your Order -<strong>${iD}</strong></h5></span>
+            </div>
+            `
 
-            mystr = `<li class="list-item d-flex justify-content-between align-items-center">
-               <div class=" mx-4">
-                <span id="1"  class="  mx-5"><h5>${name}</h5></span>
-                <span id="2" class="  mx-5"><h5>${qty}</h5></span>
-                <span id="3" class=" mx-5"><h5>${price}</h5></span>
-                </div>
-                </li>`
-                $('#item').append(mystr)
-            }
+        }
+                    $('#item1').append(myOI)
+                    $('#item2').append(myPI)
+                    $('#item3').append(mySign)
+                    $('#orderId').append(myiD)
+                 
         </script>
 {% endblock %}

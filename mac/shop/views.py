@@ -117,12 +117,14 @@ def checkout(request):
         data = {"amount": str(amount)+"00", "currency": "INR", "receipt": str(id)}
         payment = client.order.create(data=data)
 
-        return render(request, 'shop/paytm.html', {'payment': payment})
+        return render(request, 'shop/paytm.html', {'payment': payment, 'id':id})
     return render(request, 'shop/checkout.html')
 
 
 @csrf_exempt
 def handlerequest(request):
     # paytm will send you post request here
-
-    return render(request, 'shop/paymentstatus.html')
+    orders = Order.objects.all()
+    params = {'orders':orders}
+    print(params)
+    return render(request, 'shop/paymentstatus.html',params)
